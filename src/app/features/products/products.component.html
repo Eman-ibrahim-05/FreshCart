@@ -1,0 +1,41 @@
+@if (isLoading) {
+<app-cart-loader></app-cart-loader>
+} @else {
+<section class="w-full max-w-7xl mx-auto px-4 py-8">
+  <div
+    class="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+  >
+    @for (product of products; track product.id) {
+    <app-product-card [product]="product"></app-product-card>
+    }
+  </div>
+
+  @if (totalPages > 1) {
+  <div class="flex justify-center items-center gap-6 mt-10">
+    <button
+      class="cursor-pointer text-gray-500 hover:text-main transition disabled:opacity-30 disabled:hover:text-gray-400"
+      (click)="prevPage()"
+      [disabled]="currentPage === 1"
+      title="Previous"
+    >
+      <i class="fa-solid fa-chevron-left text-lg sm:text-xl"></i>
+    </button>
+
+    <p class="text-sm sm:text-base text-gray-600">
+      Page
+      <span class="font-semibold text-main">{{ currentPage }}</span>
+      of {{ totalPages }}
+    </p>
+
+    <button
+      class="cursor-pointer text-gray-500 hover:text-main transition disabled:opacity-30 disabled:hover:text-gray-400"
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+      title="Next"
+    >
+      <i class="fa-solid fa-chevron-right text-lg sm:text-xl"></i>
+    </button>
+  </div>
+  }
+</section>
+} 

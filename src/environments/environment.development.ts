@@ -1,0 +1,4 @@
+export const environment = {
+    baseUrl: 'https://ecommerce.routemisr.com/api/v1',
+    frontend: 'http://localhost:4200',
+};

@@ -1,0 +1,112 @@
+<nav class="bg-gray-50 border-gray-200">
+  <div class="max-w-screen-xl flex flex-wrap gap-2 items-center justify-between mx-auto p-4">
+    <a routerLink="home" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <img src="images/logo.svg" class="h-8" alt="Freshcart Logo" />
+    </a>
+
+    <button
+      data-collapse-toggle="navbar-default"
+      type="button"
+      class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg desktop:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+      aria-controls="navbar-default"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M1 1h15M1 7h15M1 13h15"
+        />
+      </svg>
+    </button>
+
+    <div class="grow hidden w-full desktop:flex items-center justify-between md:w-auto" id="navbar-default">
+      @if(isLogin){
+      <ul
+        class="font-normal flex flex-col mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0"
+      >
+        @for(page of pages; track $index){
+        <li>
+          <a
+            routerLinkActive="text-green-500 font-bold"
+            [routerLink]="page.path"
+            class="block py-2 px-3 text-gray-400 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+            aria-current="page"
+            >{{ page.title }}</a
+          >
+        </li>
+        }
+      </ul>
+      }
+
+      <ul
+        class="ml-auto font-medium flex flex-col mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0"
+      >
+        @if (isLogin) {
+        <li>
+          <a href="" aria-current="page" [routerLink]="wishListPage.path">
+            <i
+              routerLinkActive="text-green-500 font-semibold"
+              class="fa-solid fa-heart text-xl text-gray-400 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+            ></i>
+          </a>
+        </li>
+        <li>
+          <a href="" aria-current="page" [routerLink]="cartPage.path">
+            <i
+              routerLinkActive="text-green-500 font-semibold"
+              class="fa-solid fa-cart-shopping text-xl text-gray-400 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+            ></i>
+          </a>
+        </li>
+        }
+
+        <li class="space-x-3 flex items-center">
+          <a href="https://www.facebook.com/">
+            <i
+              class="fa fa-brands fa-facebook text-gray-400 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+            ></i>
+          </a>
+          <a href="https://x.com/">
+            <i
+              class="fa fa-brands fa-twitter text-gray-400 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+            ></i>
+          </a>
+          <a href="https://www.youtube.com/">
+            <i
+              class="fa fa-brands fa-youtube text-gray-400 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+            ></i>
+          </a>
+          <a href="https://www.linkedin.com/">
+            <i
+              class="fa fa-brands fa-linkedin text-gray-400 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+            ></i>
+          </a>
+        </li>
+
+        @if(!isLogin) { 
+          @for(page of authPages; track $index){
+          <li>
+            <a
+              routerLinkActive="text-green-500"
+              [routerLink]="page.path"
+              class="block py-2 px-3 text-gray-400 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0"
+              aria-current="page"
+              >{{ page.title }}</a
+            >
+          </li>
+          } 
+        } 
+
+        @if(isLogin){
+        <li>
+          <span class="cursor-pointer text-gray-400" (click)="logOut()">logOut</span>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>

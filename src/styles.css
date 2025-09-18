@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+#font{
+     font-family: "Edu VIC WA NT Hand Pre", cursive;
+}
+
+@theme {
+    --breakpoint-desktop: 1000px;
+    --color-main: #39bb33;
+}
+
+:root {
+	--hue: 223;
+	--bg: rgba(205, 199, 199, 0.825);
+	--fg: rgb(48, 213, 48);
+	--primary: rgb(48, 213, 48);
+	--trans-dur: 0.3s;
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out forwards;
+}
+

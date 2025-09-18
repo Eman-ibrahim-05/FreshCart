@@ -1,0 +1,23 @@
+@if (isLoading) {
+  <app-cart-loader></app-cart-loader>
+} @else {
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+    @for (brand of brands; track $index) {
+      <div class="w-full bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300 cursor-pointer group active:scale-[96%] opacity-0 translate-y-6 animate-fade-in-up">
+        <div class="relative w-full h-32 sm:h-40 overflow-hidden flex items-center justify-center bg-gray-50">
+          <img
+            class="max-h-20 sm:max-h-24 object-contain transform group-hover:scale-110 transition duration-500"
+            [src]="brand.image"
+            [alt]="brand.slug"
+          />
+          <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+        </div>
+        <div class="p-2 sm:p-3 text-center">
+          <h2 class="text-sm sm:text-base md:text-lg font-semibold text-gray-700 group-hover:text-main capitalize truncate" [title]="brand.name">
+            {{ brand.name }}
+          </h2>
+        </div>
+      </div>
+    }
+  </div>
+}

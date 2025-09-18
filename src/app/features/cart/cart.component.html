@@ -1,0 +1,151 @@
+@if(isLoading){
+  <app-cart-loader></app-cart-loader>
+} @else {
+  <div class="bg-white backdrop-blur-md shadow-lg p-6 rounded-2xl">
+    <h1 class="font-bold text-3xl sm:text-4xl mb-8 text-gray-800 antialiased">
+      Your Cart
+    </h1>
+
+    @if (cartData?.numOfCartItems) {
+      <span class="text-main text-xl sm:text-2xl font-semibold block mb-6 antialiased">
+        Total: {{ cartData?.data?.totalCartPrice }} EGP
+      </span>
+    }
+
+    @for (item of cartData?.data?.products; track $index; let i = $index) {
+      <div class="flex flex-col sm:flex-row gap-4 mb-6 p-4 rounded-xl shadow-sm bg-gray-50 hover:bg-gray-100 hover:scale-105 transition-all duration-300">
+        <div class="flex-shrink-0">
+          <img
+            [src]="item.product.imageCover"
+            [alt]="item.product.slug"
+            class="w-20 h-20 object-cover rounded-lg transform transition duration-300 hover:scale-105 hover:shadow-lg"
+          />
+        </div>
+        <div class="flex-1 flex flex-col sm:flex-row justify-between items-center sm:items-start">
+          <div class="text-center sm:text-left space-y-1">
+            <p class="font-medium text-gray-700 line-clamp-1 antialiased">
+              {{ item.product.title }}
+            </p>
+            <span class="text-main font-medium antialiased">Price: {{ item.price }} EGP</span>
+            <button
+              (click)="deleteProduct(item.product._id)"
+              class="cursor-pointer bg-red-50 text-red-500 hover:bg-red-100 flex gap-2 items-center justify-center sm:justify-start text-sm mt-2 transition-all duration-300 rounded-lg px-3 py-1.5 font-medium"
+            >
+              <i class="fa fa-trash"></i>
+              <span>Remove</span>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-3 mt-3 sm:mt-0">
+            <button
+              [disabled]="countLoading && currentIndex == i"
+              (click)="updateProductCount(item.product._id, item.count + 1, i)"
+              class="cursor-pointer w-9 h-9 rounded-full border border-green-500 flex justify-center items-center bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 active:scale-95 transition-all transform hover:scale-105 hover:shadow-md"
+            >
+              @if (countLoading && currentIndex == i) {
+                <i class="fa-solid fa-spinner fa-spin text-xs"></i>
+              } @else {
+                <i class="fa-solid fa-plus text-xs"></i>
+              }
+            </button>
+            <span class="px-3 font-semibold text-gray-700 antialiased">
+              {{ item.count }}
+            </span>
+            <button
+              [disabled]="countLoading && currentIndex == i"
+              (click)="updateProductCount(item.product._id, item.count - 1, i)"
+              class="cursor-pointer w-9 h-9 rounded-full border border-green-500 flex justify-center items-center bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 active:scale-95 transition-all transform hover:scale-105 hover:shadow-md"
+            >
+              @if (countLoading && currentIndex == i) {
+                <i class="fa-solid fa-spinner fa-spin text-xs"></i>
+              } @else {
+                <i class="fa-solid fa-minus text-xs"></i>
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+    @empty {
+      <div class="text-center py-8">
+        <p class="text-gray-500 text-lg antialiased">Your cart is empty</p>
+      </div>
+    }
+
+    @if (cartData?.numOfCartItems) {
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <button
+          (click)="clearCart()"
+          class="cursor-pointer bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-3 rounded-full shadow active:scale-95 transition transform hover:scale-105 hover:shadow-lg flex items-center gap-2 font-medium"
+        >
+          <i class="fa fa-trash"></i>
+          <span>Clear Cart</span>
+        </button>
+        <button
+          (click)="isAddressFormOpen = true"
+          class="cursor-pointer bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-full shadow active:scale-95 transition transform hover:scale-105 hover:shadow-lg flex items-center gap-2 font-medium"
+        >
+          <i class="fa fa-credit-card"></i>
+          <span>Proceed to Checkout</span>
+        </button>
+      </div>
+    }
+  </div>
+}
+
+<div [class.!flex]="isAddressFormOpen" class="hidden fixed inset-0 bg-black/70 justify-center items-center px-4">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="addressForm"
+    class="max-w-3/4 w-full sm:w-96 bg-white p-6 rounded-xl shadow-lg"
+  >
+    <h2 class="text-2xl mb-4 font-semibold text-center text-gray-800 antialiased">
+      Address Form
+    </h2>
+
+    <div class="relative z-0 w-full mb-5 group">
+      <input formControlName="details" type="text" id="floating_details" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-main peer" placeholder=" " required />
+      <label for="floating_details" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-main">Details</label>
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      <input formControlName="city" type="text" id="floating_city" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-main peer" placeholder=" " required />
+      <label for="floating_city" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-main">City</label>
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      <input formControlName="phone" type="tel" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-green-600 peer" placeholder=" " required />
+      <label for="floating_phone" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-green-600">Phone</label>
+    </div>
+
+    <div class="flex justify-center space-x-6 mt-6 mb-6 text-gray-700">
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="radio" name="payment" value="card" [checked]="paymentMethod === 'card'" (change)="paymentMethod = 'card'" class="accent-green-600 cursor-pointer" />
+        <span>Card</span>
+      </label>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="radio" name="payment" value="cash" [checked]="paymentMethod === 'cash'" (change)="paymentMethod = 'cash'" class="accent-green-600 cursor-pointer" />
+        <span>Cash</span>
+      </label>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button
+        type="button"
+        (click)="isAddressFormOpen = false"
+        class="cursor-pointer bg-gradient-to-r from-gray-300 to-gray-400 hover:from-gray-400 hover:to-gray-500 text-gray-800 px-6 py-2 rounded-full transition transform hover:scale-105 hover:shadow-md flex items-center gap-2 font-medium"
+      >
+        <i class="fa fa-times"></i>
+        <span>Cancel</span>
+      </button>
+      <button
+        type="submit"
+        class="cursor-pointer bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-2 rounded-full shadow transition transform hover:scale-105 hover:shadow-lg flex items-center gap-2 font-medium"
+      >
+        <i class="fa fa-paper-plane"></i>
+        <span>Submit</span>
+      </button>
+    </div>
+  </form>
+</div>

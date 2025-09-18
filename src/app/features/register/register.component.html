@@ -1,0 +1,134 @@
+<section class="w-full py-16 flex items-start justify-center">
+  <div class="grid grid-cols-1 md:grid-cols-2 w-full max-w-5xl rounded-xl relative">
+    <div
+      class="absolute inset-0 bg-cover bg-center md:hidden"
+      style="background-image: url('images/auth.svg'); opacity: 0.4;"
+    ></div>
+
+    <div class="p-6 flex items-start justify-start relative z-10">
+      <div class="w-full max-w-sm">
+        <h2 class="text-3xl font-bold text-main mb-6">Register Form</h2>
+
+        <form
+          (ngSubmit)="handleSubmit()"
+          [formGroup]="registerForm"
+          class="space-y-6"
+        >
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              formControlName="email"
+              type="email"
+              id="floating_email"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent 
+                     border-0 border-b-2 border-gray-300 appearance-none 
+                     focus:outline-none focus:ring-0 focus:border-green-600 peer"
+              placeholder=" "
+            />
+            <label
+              for="floating_email"
+              class="peer-focus:font-medium absolute text-sm text-gray-700 
+                     duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 
+                     peer-focus:scale-75 peer-focus:-translate-y-6"
+              >insert your email :</label>
+          </div>
+
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              formControlName="name"
+              type="text"
+              id="floating_name"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent 
+                     border-0 border-b-2 border-gray-300 appearance-none 
+                     focus:outline-none focus:ring-0 focus:border-green-600 peer"
+              placeholder=" "
+            />
+            <label
+              for="floating_name"
+              class="peer-focus:font-medium absolute text-sm text-gray-700 
+                     duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 
+                     peer-focus:scale-75 peer-focus:-translate-y-6"
+              >insert your name :</label>
+          </div>
+
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              formControlName="password"
+              type="password"
+              id="floating_password"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent 
+                     border-0 border-b-2 border-gray-300 appearance-none 
+                     focus:outline-none focus:ring-0 focus:border-green-600 peer"
+              placeholder=" "
+            />
+            <label
+              for="floating_password"
+              class="peer-focus:font-medium absolute text-sm text-gray-700 
+                     duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 
+                     peer-focus:scale-75 peer-focus:-translate-y-6"
+              >insert your password :</label>
+          </div>
+
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              formControlName="rePassword"
+              type="password"
+              id="floating_rePassword"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent 
+                     border-0 border-b-2 border-gray-300 appearance-none 
+                     focus:outline-none focus:ring-0 focus:border-green-600 peer"
+              placeholder=" "
+            />
+            <label
+              for="floating_rePassword"
+              class="peer-focus:font-medium absolute text-sm text-gray-700 
+                     duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 
+                     peer-focus:scale-75 peer-focus:-translate-y-6"
+              >insert your rePassword :</label>
+          </div>
+
+          <div class="relative z-0 w-full mb-5 group">
+            <input
+              formControlName="phone"
+              type="tel"
+              id="floating_phone"
+              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent 
+                     border-0 border-b-2 border-gray-300 appearance-none 
+                     focus:outline-none focus:ring-0 focus:border-green-600 peer"
+              placeholder=" "
+            />
+            <label
+              for="floating_phone"
+              class="peer-focus:font-medium absolute text-sm text-gray-700 
+                     duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                     peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 
+                     peer-focus:scale-75 peer-focus:-translate-y-6"
+              >insert your phone number :</label>
+          </div>
+
+          <button
+            [disabled]="isLoading"
+            type="submit"
+            class="w-full text-white disabled:opacity-50 bg-green-700 hover:bg-green-800 
+                   focus:ring-4 focus:outline-none focus:ring-green-300 font-medium 
+                   rounded-lg text-sm px-5 py-2.5 text-center 
+                   transition-transform duration-300 hover:scale-105 active:scale-95"
+          >
+            @if(isLoading){ loading... } @else { Submit }
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="hidden md:flex items-center justify-center p-6">
+      <img
+        src="images/auth.svg"
+        alt="Shopping"
+        class="w-full h-auto opacity-40"
+      />
+    </div>
+  </div>
+</section>

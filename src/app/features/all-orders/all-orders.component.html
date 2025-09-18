@@ -1,0 +1,65 @@
+@if (isLoading) {
+  <app-cart-loader></app-cart-loader>
+} @else {
+  <section class="pt-8 px-4 sm:px-6 lg:px-8">
+    @if (isEmpty) {
+      <div class="bg-white/80 backdrop-blur-md p-6 sm:p-8 rounded-2xl shadow-lg text-center">
+        <h3 class="text-lg sm:text-2xl font-semibold text-gray-700">
+          No <span class="text-main">orders</span> yet
+        </h3>
+      </div>
+    } @else {
+      <div class="bg-white/80 backdrop-blur-md p-6 sm:p-8 rounded-2xl shadow-lg">
+        <h2 class="text-center text-2xl sm:text-3xl font-bold pb-6 sm:pb-8 text-gray-800">
+          All <span class="text-main">Orders</span>
+        </h2>
+
+        <div class="grid gap-6 sm:gap-8">
+          @for (order of orders; track order._id; let i = $index) {
+            <div class="rounded-xl bg-gray-50/90 p-4 sm:p-6 shadow-md hover:shadow-lg transition">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-300/40 pb-3 sm:pb-4 mb-3 sm:mb-4">
+                <h2 class="text-base sm:text-lg md:text-xl font-semibold text-gray-800">
+                  Order <span class="text-main font-bold">{{ i + 1 }}</span>
+                </h2>
+                <span class="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-green-100/80 text-green-700">
+                  {{ order.paymentMethodType }}
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-3 sm:gap-4">
+                @for (item of order.cartItems; track item._id) {
+                  <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border border-gray-300/30 shadow-sm">
+                    <img
+                      class="w-full h-full object-cover"
+                      [src]="item.product.imageCover"
+                      [alt]="item.product.title"
+                    />
+                  </div>
+                }
+              </div>
+
+              <div class="mt-4 sm:mt-6 space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700">
+                <p>
+                  <span class="font-semibold text-main">Total Price:</span>
+                  <span class="font-bold">{{ order.totalOrderPrice | currency : "EGP " }}</span>
+                </p>
+                <p>
+                  <span class="font-semibold text-main">Shipping Price:</span>
+                  {{ order.shippingPrice }}
+                </p>
+                <div class="pt-3 border-t border-gray-300/40">
+                  <span class="font-semibold text-main">Shipping Info:</span>
+                  <ul class="list-disc list-inside mt-2 space-y-1">
+                    <li><span class="font-medium">City:</span> {{ order.shippingAddress?.city }}</li>
+                    <li><span class="font-medium">Details:</span> {{ order.shippingAddress?.details }}</li>
+                    <li><span class="font-medium">Phone:</span> {{ order.shippingAddress?.phone }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </section>
+} 
