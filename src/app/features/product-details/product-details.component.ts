@@ -17,17 +17,24 @@ export class ProductDetailsComponent {
   product: Product | null = null;
   private cartService = inject(CartService);
   private toaster = inject(ToastrService);
-
-  isLoading = false;
-
   private productService = inject(ProductService);
   private route = inject(ActivatedRoute);
+
+  isLoading = false;
+  productTitle: string | null = null;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id) {
         this.getProductDetails(id);
+      }
+    });
+
+    this.route.queryParamMap.subscribe((query) => {
+      const title = query.get('title');
+      if (title) {
+        this.productTitle = title;
       }
     });
   }
@@ -50,32 +57,20 @@ export class ProductDetailsComponent {
 
   customOptions: OwlOptions = {
     loop: true,
-
     mouseDrag: true,
     touchDrag: true,
-
     pullDrag: false,
     dots: true,
     navSpeed: 600,
     autoplay: true,
     autoplaySpeed: 20,
     navText: ['prev', 'next'],
-
     responsive: {
-      0: {
-        items: 1,
-      },
-      400: {
-        items: 2,
-      },
-      740: {
-        items: 3,
-      },
-      940: {
-        items: 7,
-      },
+      0: { items: 1 },
+      400: { items: 2 },
+      740: { items: 3 },
+      940: { items: 7 },
     },
-
     margin: 10,
     nav: false,
   };
