@@ -7,12 +7,12 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'register', renderMode: RenderMode.Prerender },
   { path: 'reset-password', renderMode: RenderMode.Prerender },
 
-  { path: 'products', renderMode: RenderMode.Server },
-  { path: 'categories', renderMode: RenderMode.Server },
-  { path: 'brands', renderMode: RenderMode.Server },
-  { path: 'cart', renderMode: RenderMode.Server },
-  { path: 'wish-list', renderMode: RenderMode.Server },
-  { path: 'allorders', renderMode: RenderMode.Server },
+  { path: 'products', renderMode: RenderMode.Prerender },
+  { path: 'categories', renderMode: RenderMode.Prerender },
+  { path: 'brands', renderMode: RenderMode.Prerender },
+  { path: 'cart', renderMode: RenderMode.Prerender },
+  { path: 'wish-list', renderMode: RenderMode.Prerender },
+  { path: 'allorders', renderMode: RenderMode.Prerender },
   { path: 'product-details/:id', renderMode: RenderMode.Server },
 
   { path: '**', renderMode: RenderMode.Server },
