@@ -31,7 +31,7 @@ export const routes: Routes = [
   { 
     path: "product-details/:id", 
     loadComponent: () => import('./features/product-details/product-details.component')
-      .then(m => m.ProductDetailsComponent) 
+      .then(m => m.ProductDetailsComponent),  data: { renderMode: 'server' }
   },
   { 
     path: "categories", 
