@@ -8,11 +8,12 @@ import {
 } from '@angular/forms';
 import { AuthService, UserData } from '../../core/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { CartLoaderComponent } from "../../shared/components/cart-loader/cart-loader.component";
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
